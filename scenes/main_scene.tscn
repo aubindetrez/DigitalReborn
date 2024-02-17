@@ -35,7 +35,7 @@ animations = [{
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(-347, -66)
+position = Vector2(1, 150)
 scale = Vector2(0.5, 0.5)
 
 [node name="Controller" type="Node" parent="Player" node_paths=PackedStringArray("sprite")]
@@ -49,9 +49,10 @@ autoplay = "default"
 frame_progress = 0.318737
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(694, 132)
+position = Vector2(6, -196)
 scale = Vector2(2, 2)
 position_smoothing_enabled = true
+position_smoothing_speed = 1.0
 
 [node name="Rock" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
