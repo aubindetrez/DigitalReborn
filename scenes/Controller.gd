@@ -7,7 +7,7 @@ class_name Controller
 @export var active: bool = true # Can be used to disable controller in gui window...
 
 var parent: CharacterBody2D
-@export var sprite: AnimatedSprite2D
+@export var toBeRotated: AnimationController
 
 func _ready():
 	parent = get_parent()
@@ -60,6 +60,6 @@ func update_position(delta):
 
 	#if velocity.length() >= 1:
 	var target_angle = atan2(velocity.x, velocity.y)
-	var rot = sprite.get_rotation()
-	rot = lerp_angle(rot, target_angle, 0.1)
-	sprite.set_rotation(rot)
+	#var rot = toBeRotated.get_rotation()
+	#rot = lerp_angle(rot, target_angle, 0.1)
+	toBeRotated.set_rotation(target_angle)
