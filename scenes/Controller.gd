@@ -8,6 +8,7 @@ class_name Controller
 
 var parent: CharacterBody2D
 @export var toBeRotated: AnimationController
+@export var area2dToRotate: Area2D
 
 signal attack() # emitted when the user press ui_select
 
@@ -65,11 +66,11 @@ func update_position(delta):
 	parent.move_and_slide()
 
 	#if velocity.length() >= 1:
-	var target_angle = atan2(velocity.x, velocity.y)
+	var target_angle = atan2(velocity.x, -velocity.y)
 	#var rot = toBeRotated.get_rotation()
 	#rot = lerp_angle(rot, target_angle, 0.1)
 	toBeRotated.set_rotation(target_angle)
-
+	area2dToRotate.set_rotation(target_angle)
 
 func _on_change_anim_based_on_mvmnt_anim_attack_finished():
 	active = true

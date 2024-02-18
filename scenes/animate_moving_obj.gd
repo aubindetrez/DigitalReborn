@@ -37,9 +37,9 @@ func _process(delta):
 func anim_moving():
 	parent.speed_scale = 2 # by default the movement is too fast compared to the animation, speed up the animation
 	if smoothed_rot < (PI/2 - PI/4) and smoothed_rot > (-PI/2 + PI/4):
-		parent.play("downward")
-	elif smoothed_rot < (-PI/2 - PI/4) or smoothed_rot > (PI/2 + PI/4):
 		parent.play("upward")
+	elif smoothed_rot < (-PI/2 - PI/4) or smoothed_rot > (PI/2 + PI/4):
+		parent.play("downward")
 	elif smoothed_rot < (PI - PI/4) and smoothed_rot > (0 + PI/4):
 		parent.flip_h = false
 		parent.play("right")
@@ -50,9 +50,9 @@ func anim_moving():
 func anim_idle():
 	parent.speed_scale = 1
 	if smoothed_rot < (PI/2 - PI/4) and smoothed_rot > (-PI/2 + PI/4):
-		parent.play("idledown")
-	elif smoothed_rot < (-PI/2 - PI/4) or smoothed_rot > (PI/2 + PI/4):
 		parent.play("idleup")
+	elif smoothed_rot < (-PI/2 - PI/4) or smoothed_rot > (PI/2 + PI/4):
+		parent.play("idledown")
 	elif smoothed_rot < (PI - PI/4) and smoothed_rot > (0 + PI/4):
 		parent.flip_h = false
 		parent.play("idleright")
@@ -65,9 +65,9 @@ func anim_attack():
 	blockingAnimAttack = true
 	parent.speed_scale = 2
 	if smoothed_rot < (PI/2 - PI/4) and smoothed_rot > (-PI/2 + PI/4):
-		parent.play("attackdown")
-	elif smoothed_rot < (-PI/2 - PI/4) or smoothed_rot > (PI/2 + PI/4):
 		parent.play("attackup")
+	elif smoothed_rot < (-PI/2 - PI/4) or smoothed_rot > (PI/2 + PI/4):
+		parent.play("attackdown")
 	elif smoothed_rot < (PI - PI/4) and smoothed_rot > (0 + PI/4):
 		parent.flip_h = false
 		parent.play("attackright")

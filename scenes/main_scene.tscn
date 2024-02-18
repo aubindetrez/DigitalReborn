@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://405rg1u3rtsv"]
+[gd_scene load_steps=54 format=3 uid="uid://405rg1u3rtsv"]
 
 [ext_resource type="PackedScene" uid="uid://ub2jublnx2sv" path="res://scenes/TestDropNCraft.tscn" id="1_0hwdm"]
 [ext_resource type="Texture2D" uid="uid://djx4desyus1pf" path="res://assets/floor/floor_v2.png" id="1_mi586"]
@@ -6,7 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://c3dcggddw7pbt" path="res://assets/rock/rock_v2.png" id="3_fjrnr"]
 [ext_resource type="Texture2D" uid="uid://deeiwlehbwesu" path="res://assets/tree/tree_v2.png" id="4_gaol8"]
 [ext_resource type="Script" path="res://scenes/animate_moving_obj.gd" id="4_ujqmk"]
+[ext_resource type="Script" path="res://scenes/AttackRegion.gd" id="5_rowbj"]
 [ext_resource type="Script" path="res://scenes/Controller.gd" id="6_ok3vd"]
+[ext_resource type="Script" path="res://HitBox.gd" id="7_ju6yn"]
+[ext_resource type="AudioStream" uid="uid://v65lqiubwdqg" path="res://attack.wav" id="9_ini3i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jivvp"]
 resource_name = "Floor"
@@ -56,7 +59,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jivvp")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1xxw5"]
-size = Vector2(70, 130)
+size = Vector2(70, 83)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oxs0p"]
 atlas = ExtResource("2_uow8f")
@@ -356,13 +359,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qon44"]
+size = Vector2(62, 97)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s20h7"]
 size = Vector2(123, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4xrhr"]
 size = Vector2(30.2, 27)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1g5b"]
+size = Vector2(33.6, 31)
+
 [node name="Node2D" type="Node2D"]
+
+[node name="Ambiance" type="AudioStreamPlayer" parent="."]
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-1, 2)
@@ -376,12 +387,13 @@ position = Vector2(1, 150)
 scale = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(2, -64)
+position = Vector2(2, -40.5)
 shape = SubResource("RectangleShape2D_1xxw5")
 
-[node name="Controller" type="Node" parent="Player" node_paths=PackedStringArray("toBeRotated")]
+[node name="Controller" type="Node" parent="Player" node_paths=PackedStringArray("toBeRotated", "area2dToRotate")]
 script = ExtResource("6_ok3vd")
 toBeRotated = NodePath("../PlayerSprite/ChangeAnimBasedOnMvmnt")
+area2dToRotate = NodePath("../AttackRegion")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(4, -62)
@@ -399,35 +411,70 @@ scale = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 1.0
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-scale = Vector2(0.5, 0.5)
+[node name="AttackRegion" type="Area2D" parent="Player"]
+position = Vector2(4, -58)
+collision_layer = 2
+collision_mask = 2
+monitoring = false
+script = ExtResource("5_rowbj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackRegion"]
+position = Vector2(0, -96)
+shape = SubResource("RectangleShape2D_qon44")
+debug_color = Color(0.670588, 0.466667, 0.556863, 0.419608)
+
+[node name="StaticBody2D2-rock" type="StaticBody2D" parent="."]
+scale = Vector2(0.5, 0.5)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2-rock"]
 position = Vector2(-4, 10)
 shape = SubResource("RectangleShape2D_s20h7")
 
-[node name="Rock" type="Sprite2D" parent="StaticBody2D2"]
+[node name="Rock" type="Sprite2D" parent="StaticBody2D2-rock"]
 scale = Vector2(5, 5)
 texture = ExtResource("3_fjrnr")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D-tree" type="StaticBody2D" parent="."]
 position = Vector2(173, 0)
 scale = Vector2(5, 5)
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D-tree"]
 position = Vector2(-0.100002, -1.8)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4xrhr")
 
-[node name="Tree" type="Sprite2D" parent="StaticBody2D"]
+[node name="Tree" type="Sprite2D" parent="StaticBody2D-tree"]
 scale = Vector2(1, 1)
 texture = ExtResource("4_gaol8")
 hframes = 2
+
+[node name="HitBox" type="StaticBody2D" parent="StaticBody2D-tree" node_paths=PackedStringArray("audioPlayer")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_ju6yn")
+audioPlayer = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StaticBody2D-tree/HitBox"]
+stream = ExtResource("9_ini3i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D-tree/HitBox"]
+position = Vector2(-0.200001, -1.5)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_p1g5b")
+debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
 
 [node name="TestDropNCraft" parent="." instance=ExtResource("1_0hwdm")]
 position = Vector2(-98, 31)
 scale = Vector2(0.5, 0.5)
 
 [connection signal="attack" from="Player/Controller" to="Player/PlayerSprite/ChangeAnimBasedOnMvmnt" method="anim_attack"]
+[connection signal="attack" from="Player/Controller" to="Player/AttackRegion" method="_on_controller_attack"]
 [connection signal="animation_finished" from="Player/PlayerSprite" to="Player/PlayerSprite/ChangeAnimBasedOnMvmnt" method="_on_player_sprite_animation_finished"]
 [connection signal="anim_attack_finished" from="Player/PlayerSprite/ChangeAnimBasedOnMvmnt" to="Player/Controller" method="_on_change_anim_based_on_mvmnt_anim_attack_finished"]
+[connection signal="anim_attack_finished" from="Player/PlayerSprite/ChangeAnimBasedOnMvmnt" to="Player/AttackRegion" method="_on_change_anim_based_on_mvmnt_anim_attack_finished"]
+[connection signal="area_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_area_entered"]
+[connection signal="area_shape_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_area_shape_entered"]
+[connection signal="body_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_body_entered"]
+[connection signal="body_shape_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_body_shape_entered"]
