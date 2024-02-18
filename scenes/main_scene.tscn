@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://405rg1u3rtsv"]
+[gd_scene load_steps=57 format=3 uid="uid://405rg1u3rtsv"]
 
 [ext_resource type="PackedScene" uid="uid://ub2jublnx2sv" path="res://scenes/TestDropNCraft.tscn" id="1_0hwdm"]
 [ext_resource type="AudioStream" uid="uid://bilqt5x51lsl2" path="res://sounds/sound_v1-Harp.mp3" id="1_7sy8g"]
@@ -11,7 +11,8 @@
 [ext_resource type="Script" path="res://scenes/AttackRegion.gd" id="5_rowbj"]
 [ext_resource type="Script" path="res://scenes/Controller.gd" id="6_ok3vd"]
 [ext_resource type="Script" path="res://HitBox.gd" id="7_ju6yn"]
-[ext_resource type="AudioStream" uid="uid://v65lqiubwdqg" path="res://attack.wav" id="9_ini3i"]
+[ext_resource type="AudioStream" uid="uid://byk73guyjs8pg" path="res://sounds/attack_rock.wav" id="10_kfqix"]
+[ext_resource type="AudioStream" uid="uid://dxmydkkdbhake" path="res://sounds/attack_tree.wav" id="12_dje2w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jivvp"]
 resource_name = "Floor"
@@ -367,11 +368,11 @@ size = Vector2(62, 97)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s20h7"]
 size = Vector2(123, 59)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xrhr"]
-size = Vector2(30.2, 27)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1g5b"]
 size = Vector2(33.6, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xrhr"]
+size = Vector2(30.2, 27)
 
 [node name="Node2D" type="Node2D"]
 
@@ -440,6 +441,32 @@ shape = SubResource("RectangleShape2D_s20h7")
 scale = Vector2(5, 5)
 texture = ExtResource("3_fjrnr")
 
+[node name="HitBox" type="StaticBody2D" parent="StaticBody2D2-rock/Rock" node_paths=PackedStringArray("audioPlayer", "label")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_ju6yn")
+audioPlayer = NodePath("AudioStreamPlayer")
+label = NodePath("Label")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StaticBody2D2-rock/Rock/HitBox"]
+stream = ExtResource("10_kfqix")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2-rock/Rock/HitBox"]
+position = Vector2(-0.200001, -1.5)
+shape = SubResource("RectangleShape2D_p1g5b")
+debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
+
+[node name="Label" type="Label" parent="StaticBody2D2-rock/Rock/HitBox"]
+offset_left = 0.8
+offset_top = -23.2
+offset_right = 60.8
+offset_bottom = -1.2
+scale = Vector2(0.590707, 0.63816)
+theme_override_font_sizes/font_size = 15
+text = "+1 rock"
+
+[node name="Timer" type="Timer" parent="StaticBody2D2-rock/Rock/HitBox"]
+
 [node name="StaticBody2D-tree" type="StaticBody2D" parent="."]
 position = Vector2(173, 0)
 scale = Vector2(5, 5)
@@ -461,7 +488,7 @@ audioPlayer = NodePath("AudioStreamPlayer")
 label = NodePath("Label")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StaticBody2D-tree/HitBox"]
-stream = ExtResource("9_ini3i")
+stream = ExtResource("12_dje2w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D-tree/HitBox"]
 position = Vector2(-0.200001, -1.5)
@@ -493,4 +520,5 @@ scale = Vector2(0.5, 0.5)
 [connection signal="area_shape_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_area_shape_entered"]
 [connection signal="body_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_body_entered"]
 [connection signal="body_shape_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_body_shape_entered"]
+[connection signal="timeout" from="StaticBody2D2-rock/Rock/HitBox/Timer" to="StaticBody2D2-rock/Rock/HitBox" method="_on_timer_timeout"]
 [connection signal="timeout" from="StaticBody2D-tree/HitBox/Timer" to="StaticBody2D-tree/HitBox" method="_on_timer_timeout"]

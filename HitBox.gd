@@ -13,7 +13,6 @@ func _process(delta):
 	pass
 
 func _receive_attack(power):
-	print("Tree is hit by power:", power)
 	display_label_1s()
 	audioPlayer.play()
 
