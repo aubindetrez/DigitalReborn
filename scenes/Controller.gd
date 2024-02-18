@@ -10,7 +10,7 @@ var parent: CharacterBody2D
 @export var toBeRotated: AnimationController
 @export var area2dToRotate: Area2D
 
-signal attack() # emitted when the user press ui_select
+signal attack(strengh: int) # emitted when the user press ui_select
 
 func _ready():
 	parent = get_parent()
@@ -51,7 +51,7 @@ func compute_strength(event):
 		up_strength = 0.0
 	
 	if event.is_action_pressed("ui_select"): # attack / action
-		attack.emit()
+		attack.emit(inventory.strength)
 		active = false # block action until the attack is done
 
 var velocity = Vector2(0, 0)
@@ -72,5 +72,14 @@ func update_position(delta):
 	toBeRotated.set_rotation(target_angle)
 	area2dToRotate.set_rotation(target_angle)
 
+@export var inventory: Inventory
 func _on_change_anim_based_on_mvmnt_anim_attack_finished():
 	active = true
+
+var save_path = "user://score.save"
+func _enter_tree():
+	if ResourceLoader.exists(save_path):
+		inventory = load(save_path)
+
+func _exit_tree():
+	ResourceSaver.save(inventory, save_path)

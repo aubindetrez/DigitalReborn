@@ -61,7 +61,7 @@ func anim_idle():
 		parent.play("idleright")
 
 var blockingAnimAttack = false # Do not play any other animation if set
-func anim_attack():
+func anim_attack(strenght):
 	blockingAnimAttack = true
 	parent.speed_scale = 2
 	if smoothed_rot < (PI/2 - PI/4) and smoothed_rot > (-PI/2 + PI/4):
@@ -74,7 +74,6 @@ func anim_attack():
 	elif smoothed_rot > (-PI + PI/4) and smoothed_rot < (0 - PI/4):
 		parent.flip_h = true
 		parent.play("attackright")
-
 
 func _on_player_sprite_animation_finished():
 	anim_attack_finished.emit()

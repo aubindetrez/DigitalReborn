@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://405rg1u3rtsv"]
+[gd_scene load_steps=58 format=3 uid="uid://405rg1u3rtsv"]
 
 [ext_resource type="PackedScene" uid="uid://ub2jublnx2sv" path="res://scenes/TestDropNCraft.tscn" id="1_0hwdm"]
 [ext_resource type="AudioStream" uid="uid://bilqt5x51lsl2" path="res://sounds/sound_v1-Harp.mp3" id="1_7sy8g"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c3dcggddw7pbt" path="res://assets/rock/rock_v2.png" id="3_fjrnr"]
 [ext_resource type="Texture2D" uid="uid://deeiwlehbwesu" path="res://assets/tree/tree_v2.png" id="4_gaol8"]
 [ext_resource type="Script" path="res://scenes/animate_moving_obj.gd" id="4_ujqmk"]
+[ext_resource type="Resource" uid="uid://jkjam08pq73e" path="res://inventory.tres" id="5_g77rv"]
 [ext_resource type="Script" path="res://scenes/AttackRegion.gd" id="5_rowbj"]
 [ext_resource type="Script" path="res://scenes/Controller.gd" id="6_ok3vd"]
 [ext_resource type="Script" path="res://HitBox.gd" id="7_ju6yn"]
@@ -400,6 +401,7 @@ shape = SubResource("RectangleShape2D_1xxw5")
 script = ExtResource("6_ok3vd")
 toBeRotated = NodePath("../PlayerSprite/ChangeAnimBasedOnMvmnt")
 area2dToRotate = NodePath("../AttackRegion")
+inventory = ExtResource("5_g77rv")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(4, -62)
