@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ub2jublnx2sv"]
+
+[ext_resource type="Script" path="res://scenes/TestDropItem.gd" id="1_ph0vd"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h6ham"]
+
+[node name="TestDropNCraft" type="Node2D"]
+
+[node name="TestDropItem" type="Button" parent="."]
+offset_left = 194.0
+offset_top = 43.0
+offset_right = 301.0
+offset_bottom = 74.0
+text = "Drop items"
+script = ExtResource("1_ph0vd")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("WorldBoundaryShape2D_h6ham")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)

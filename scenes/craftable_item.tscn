@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgerimecmoyu"]
+
+[ext_resource type="Script" path="res://scenes/CraftableItem.gd" id="1_0rguu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qq8v5"]
+size = Vector2(94, 20)
+
+[node name="CraftableItem" type="Marker2D"]
+script = ExtResource("1_0rguu")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 92.0
+offset_bottom = 23.0
+text = "ITEM_NAME"
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Label"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Label/RigidBody2D"]
+position = Vector2(47, 12)
+shape = SubResource("RectangleShape2D_qq8v5")
