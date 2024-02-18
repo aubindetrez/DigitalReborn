@@ -9,6 +9,8 @@ class_name Controller
 var parent: CharacterBody2D
 @export var toBeRotated: AnimationController
 
+signal attack() # emitted when the user press ui_select
+
 func _ready():
 	parent = get_parent()
 	assert(parent is CharacterBody2D, "controller must have a CharacterBody3D as parent to control")
@@ -46,6 +48,10 @@ func compute_strength(event):
 		up_strength = event.get_action_strength("ui_up")
 	elif event.is_action_released("ui_up"):
 		up_strength = 0.0
+	
+	if event.is_action_pressed("ui_select"): # attack / action
+		attack.emit()
+		active = false # block action until the attack is done
 
 var velocity = Vector2(0, 0)
 # Uses the results of compute_strength to more the parent
@@ -63,3 +69,7 @@ func update_position(delta):
 	#var rot = toBeRotated.get_rotation()
 	#rot = lerp_angle(rot, target_angle, 0.1)
 	toBeRotated.set_rotation(target_angle)
+
+
+func _on_change_anim_based_on_mvmnt_anim_attack_finished():
+	active = true

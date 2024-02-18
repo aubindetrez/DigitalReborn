@@ -216,7 +216,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ykye1")
 }],
-"loop": true,
+"loop": false,
 "name": &"attackdown",
 "speed": 5.0
 }, {
@@ -239,7 +239,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_b5r6q")
 }],
-"loop": true,
+"loop": false,
 "name": &"attackright",
 "speed": 5.0
 }, {
@@ -259,7 +259,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_04lj4")
 }],
-"loop": true,
+"loop": false,
 "name": &"attackup",
 "speed": 5.0
 }, {
@@ -387,9 +387,8 @@ toBeRotated = NodePath("../PlayerSprite/ChangeAnimBasedOnMvmnt")
 position = Vector2(4, -62)
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_05rlv")
-animation = &"attackright"
+animation = &"attackup"
 autoplay = "idledown"
-frame_progress = 0.942238
 
 [node name="ChangeAnimBasedOnMvmnt" type="Node" parent="Player/PlayerSprite"]
 script = ExtResource("4_ujqmk")
@@ -428,3 +427,7 @@ hframes = 2
 [node name="TestDropNCraft" parent="." instance=ExtResource("1_0hwdm")]
 position = Vector2(-98, 31)
 scale = Vector2(0.5, 0.5)
+
+[connection signal="attack" from="Player/Controller" to="Player/PlayerSprite/ChangeAnimBasedOnMvmnt" method="anim_attack"]
+[connection signal="animation_finished" from="Player/PlayerSprite" to="Player/PlayerSprite/ChangeAnimBasedOnMvmnt" method="_on_player_sprite_animation_finished"]
+[connection signal="anim_attack_finished" from="Player/PlayerSprite/ChangeAnimBasedOnMvmnt" to="Player/Controller" method="_on_change_anim_based_on_mvmnt_anim_attack_finished"]
