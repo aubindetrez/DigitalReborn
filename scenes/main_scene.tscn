@@ -1,8 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://405rg1u3rtsv"]
+[gd_scene load_steps=22 format=3 uid="uid://405rg1u3rtsv"]
 
 [ext_resource type="PackedScene" uid="uid://ub2jublnx2sv" path="res://scenes/TestDropNCraft.tscn" id="1_0hwdm"]
-[ext_resource type="Texture2D" uid="uid://bpp8mxvclcav2" path="res://assets/rock/untitled.png" id="1_5m3iy"]
 [ext_resource type="Texture2D" uid="uid://jxfocdnhhdt8" path="res://assets/player/player_v2.png" id="2_uow8f"]
+[ext_resource type="Texture2D" uid="uid://c3dcggddw7pbt" path="res://assets/rock/rock_v2.png" id="3_fjrnr"]
 [ext_resource type="Texture2D" uid="uid://deeiwlehbwesu" path="res://assets/tree/tree_v2.png" id="4_gaol8"]
 [ext_resource type="Script" path="res://scenes/Controller.gd" id="6_ok3vd"]
 
@@ -111,6 +111,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s20h7"]
+size = Vector2(123, 59)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4xrhr"]
 size = Vector2(30.2, 27)
 
@@ -141,9 +144,16 @@ scale = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 1.0
 
-[node name="Rock" type="Sprite2D" parent="."]
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_5m3iy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-4, 10)
+shape = SubResource("RectangleShape2D_s20h7")
+
+[node name="Rock" type="Sprite2D" parent="StaticBody2D2"]
+scale = Vector2(5, 5)
+texture = ExtResource("3_fjrnr")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(173, 0)
