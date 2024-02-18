@@ -24,6 +24,14 @@ var smoothed_rot = 0.0
 #        0
 func _process(delta):
 	smoothed_rot = lerp(rotation, smoothed_rot, 0.1)
+	var charbody2d: CharacterBody2D = $"../.."
+	if charbody2d.velocity.length() > 10.0: # arbitrary number for when do we actually stopped moving
+		anim_moving()
+	else:
+		anim_idle()
+
+func anim_moving():
+	parent.speed_scale = 2 # by default the movement is too fast compared to the animation, speed up the animation
 	if smoothed_rot < (PI/2 - PI/4) and smoothed_rot > (-PI/2 + PI/4):
 		parent.play("downward")
 	elif smoothed_rot < (-PI/2 - PI/4) or smoothed_rot > (PI/2 + PI/4):
@@ -34,3 +42,16 @@ func _process(delta):
 	elif smoothed_rot > (-PI + PI/4) and smoothed_rot < (0 - PI/4):
 		parent.flip_h = true
 		parent.play("right")
+
+func anim_idle():
+	parent.speed_scale = 1
+	if smoothed_rot < (PI/2 - PI/4) and smoothed_rot > (-PI/2 + PI/4):
+		parent.play("idledown")
+	elif smoothed_rot < (-PI/2 - PI/4) or smoothed_rot > (PI/2 + PI/4):
+		parent.play("idleup")
+	elif smoothed_rot < (PI - PI/4) and smoothed_rot > (0 + PI/4):
+		parent.flip_h = false
+		parent.play("idleright")
+	elif smoothed_rot > (-PI + PI/4) and smoothed_rot < (0 - PI/4):
+		parent.flip_h = true
+		parent.play("idleright")
