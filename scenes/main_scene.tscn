@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://405rg1u3rtsv"]
+[gd_scene load_steps=11 format=3 uid="uid://405rg1u3rtsv"]
 
+[ext_resource type="PackedScene" uid="uid://ub2jublnx2sv" path="res://scenes/TestDropNCraft.tscn" id="1_0hwdm"]
 [ext_resource type="Texture2D" uid="uid://bpp8mxvclcav2" path="res://assets/rock/untitled.png" id="1_5m3iy"]
 [ext_resource type="Texture2D" uid="uid://ynmct4t8veli" path="res://assets/player/0001.png" id="1_g5ema"]
 [ext_resource type="Texture2D" uid="uid://c2vp48i3cjs0e" path="res://assets/player/0002.png" id="2_r4l63"]
@@ -63,4 +64,6 @@ position = Vector2(173, 0)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_7ngbh")
 
-[node name="TestDropNCraft" parent="." instance=ExtResource("2_uee5v")]
+[node name="TestDropNCraft" parent="." instance=ExtResource("1_0hwdm")]
+position = Vector2(-98, 31)
+scale = Vector2(0.5, 0.5)

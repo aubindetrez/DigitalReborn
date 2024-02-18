@@ -1,6 +1,6 @@
 extends Marker2D
 
-var item_scene = preload("res://craftable_item.tscn")
+var item_scene = preload("res://scenes/craftable_item.tscn")
 
 func createText():
 	var item = item_scene.instance()
