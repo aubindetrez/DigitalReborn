@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcmp6koiq3t4k"]
+
+[ext_resource type="Script" path="res://scenes/RigidBody2D_friction.gd" id="1_s88jt"]
+[ext_resource type="Script" path="res://DroppedItemCol.gd" id="2_vutkl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xtai0"]
+size = Vector2(33.5, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ahc6v"]
+radius = 30.0
+
+[node name="RigidBody2D_with_Friction" type="RigidBody2D"]
+position = Vector2(58, 105)
+collision_layer = 0
+gravity_scale = 0.0
+script = ExtResource("1_s88jt")
+friction = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.75, 3)
+shape = SubResource("RectangleShape2D_xtai0")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -21.0
+offset_top = -10.0
+offset_right = 19.0
+offset_bottom = 13.0
+scale = Vector2(1.08589, 0.932523)
+text = "drop"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.5
+emission_shape = 1
+emission_sphere_radius = 24.57
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+scale_amount_min = 0.0
+scale_amount_max = 12.63
+
+[node name="Merge_aka_Craft_Area" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_vutkl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Merge_aka_Craft_Area"]
+shape = SubResource("CircleShape2D_ahc6v")
+debug_color = Color(0.627451, 1, 0, 0.419608)
+
+[connection signal="area_entered" from="Merge_aka_Craft_Area" to="Merge_aka_Craft_Area" method="_on_area_entered"]
+[connection signal="area_exited" from="Merge_aka_Craft_Area" to="Merge_aka_Craft_Area" method="_on_area_exited"]
