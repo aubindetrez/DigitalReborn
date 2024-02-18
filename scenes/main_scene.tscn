@@ -1,10 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://405rg1u3rtsv"]
+[gd_scene load_steps=21 format=3 uid="uid://405rg1u3rtsv"]
 
 [ext_resource type="PackedScene" uid="uid://ub2jublnx2sv" path="res://scenes/TestDropNCraft.tscn" id="1_0hwdm"]
 [ext_resource type="Texture2D" uid="uid://bpp8mxvclcav2" path="res://assets/rock/untitled.png" id="1_5m3iy"]
 [ext_resource type="Texture2D" uid="uid://jxfocdnhhdt8" path="res://assets/player/player_v2.png" id="2_uow8f"]
+[ext_resource type="Texture2D" uid="uid://deeiwlehbwesu" path="res://assets/tree/tree_v2.png" id="4_gaol8"]
 [ext_resource type="Script" path="res://scenes/Controller.gd" id="6_ok3vd"]
-[ext_resource type="Texture2D" uid="uid://cfifeed5t3ds4" path="res://assets/tree/untitled.png" id="7_7ngbh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xxw5"]
+size = Vector2(70, 130)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vrev0"]
 atlas = ExtResource("2_uow8f")
@@ -108,11 +111,18 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xrhr"]
+size = Vector2(30.2, 27)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(1, 150)
 scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(2, -64)
+shape = SubResource("RectangleShape2D_1xxw5")
 
 [node name="Controller" type="Node" parent="Player" node_paths=PackedStringArray("sprite")]
 script = ExtResource("6_ok3vd")
@@ -135,10 +145,19 @@ position_smoothing_speed = 1.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_5m3iy")
 
-[node name="Tree" type="Sprite2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(173, 0)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_7ngbh")
+scale = Vector2(5, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-0.100002, -1.8)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_4xrhr")
+
+[node name="Tree" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(1, 1)
+texture = ExtResource("4_gaol8")
+hframes = 2
 
 [node name="TestDropNCraft" parent="." instance=ExtResource("1_0hwdm")]
 position = Vector2(-98, 31)
