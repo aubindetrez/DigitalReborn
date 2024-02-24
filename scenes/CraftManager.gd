@@ -4,6 +4,7 @@ class_name CraftManager
 @onready var audio = $AudioStreamPlayer
 @export var mp3_crafting: AudioStreamMP3
 @export var mp3_success: AudioStreamMP3
+
 var list: Dictionary = {} # List of all dropped item and what items they are colliding with
 
 func add_item(item: DroppedItem):
@@ -13,6 +14,9 @@ func has_item(item: DroppedItem) -> bool:
 	return list.has(item)
 func rm_item(item: DroppedItem):
 	list.erase(item)
+	# Remove all it's connections
+	for key in list:
+		list[key].erase(item)
 func add_link(a: DroppedItem, b: DroppedItem) -> bool:
 	add_item(a)
 	add_item(b)
@@ -22,8 +26,10 @@ func add_link(a: DroppedItem, b: DroppedItem) -> bool:
 	list[b][a] = 1
 	return true
 func rm_link(a: DroppedItem, b: DroppedItem):
-	list[a].erase(b)
-	list[b].erase(a)
+	if list.has(a):
+		list[a].erase(b)
+	if list.has(b):
+		list[b].erase(a)
 func get_all_link(item: DroppedItem):
 	var arr: Array[String] = []
 	var merged = {item: item} # Start with the item itself
@@ -50,11 +56,30 @@ func _callback_new_collision(item1, item2):
 		audio.stream = mp3_crafting
 		audio.play()
 		await audio.finished
+
 		var names: Array[String] = get_all_link(item1)
-		print("Item craft: ", name, " => ", get_craft(names))
-		# TODO instanciate the new object
+		var new_name = get_craft(names)
+		print("Item craft: ", name, " => ", new_name)
 		audio.stream = mp3_success
 		audio.play()
+		instanciate_and_cleanup(new_name, item1, item2)
+
+# Delete both 'item1' and 'item2' and instanciate 'new_name'
+func instanciate_and_cleanup(new_name: String, item1: DroppedItem, item2: DroppedItem):
+	# Will spawn the new item between the two others
+	var pos = item1.get_parent().global_position.lerp(item2.get_parent().global_position, 0.5)
+	var friction = int((item1.get_parent().friction+item2.get_parent().friction)/2.0)
+	rm_item(item1)
+	item1.get_parent().queue_free()
+	rm_item(item2)
+	item2.get_parent().queue_free()
+	# Instanciate the result for the craft
+	var drop_scene = preload("res://dropped_item.tscn")
+	var instance = drop_scene.instantiate()
+	instance.global_position = pos
+	instance.friction = friction
+	instance.item_name = new_name
+	get_parent().add_child(instance)
 
 # Will make sure item1 and item2 are no longer in the same entry of 'groups'
 func _callback_rm_collision(item1: DroppedItem, item2: DroppedItem):
