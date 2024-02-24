@@ -17,7 +17,7 @@ var grabbing: DroppedItem = null
 			
 
 func _process(delta):
-	if grabbing:
+	if grabbing and is_instance_valid(grabbing):
 		grabbing.get_parent()._start_pulling(target.global_position)
 
 func drop_object():
