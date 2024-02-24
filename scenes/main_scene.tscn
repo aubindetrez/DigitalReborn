@@ -407,7 +407,7 @@ position = Vector2(192, 210)
 item_name = "furnace"
 
 [node name="Item2" parent="." instance=ExtResource("4_hrpv8")]
-position = Vector2(307, 178)
+position = Vector2(298, 183)
 item_name = "rock"
 
 [node name="Item3" parent="." instance=ExtResource("4_hrpv8")]
