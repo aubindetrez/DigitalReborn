@@ -487,12 +487,11 @@ shape = SubResource("RectangleShape2D_s20h7")
 scale = Vector2(5, 5)
 texture = ExtResource("3_fjrnr")
 
-[node name="HitBox" type="StaticBody2D" parent="StaticBody2D2-rock/Rock" node_paths=PackedStringArray("audioPlayer", "label")]
+[node name="HitBox" type="StaticBody2D" parent="StaticBody2D2-rock/Rock" node_paths=PackedStringArray("audioPlayer")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("7_ju6yn")
 audioPlayer = NodePath("AudioStreamPlayer")
-label = NodePath("Label")
 item_name_to_drop = "rock"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StaticBody2D2-rock/Rock/HitBox"]
@@ -502,17 +501,6 @@ stream = ExtResource("10_kfqix")
 position = Vector2(-0.200001, -1.5)
 shape = SubResource("RectangleShape2D_p1g5b")
 debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
-
-[node name="Label" type="Label" parent="StaticBody2D2-rock/Rock/HitBox"]
-offset_left = 0.4
-offset_top = -23.2
-offset_right = 60.4
-offset_bottom = -1.2
-scale = Vector2(0.590707, 0.63816)
-theme_override_font_sizes/font_size = 15
-text = "+1 rock"
-
-[node name="Timer" type="Timer" parent="StaticBody2D2-rock/Rock/HitBox"]
 
 [node name="StaticBody2D-tree" type="StaticBody2D" parent="."]
 position = Vector2(173, 0)
@@ -527,12 +515,11 @@ shape = SubResource("RectangleShape2D_4xrhr")
 texture = ExtResource("4_gaol8")
 hframes = 2
 
-[node name="HitBox" type="StaticBody2D" parent="StaticBody2D-tree" node_paths=PackedStringArray("audioPlayer", "label")]
+[node name="HitBox" type="StaticBody2D" parent="StaticBody2D-tree" node_paths=PackedStringArray("audioPlayer")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("7_ju6yn")
 audioPlayer = NodePath("AudioStreamPlayer")
-label = NodePath("Label")
 item_name_to_drop = "wood"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StaticBody2D-tree/HitBox"]
@@ -542,17 +529,6 @@ stream = ExtResource("12_dje2w")
 position = Vector2(-0.200001, -1.5)
 shape = SubResource("RectangleShape2D_p1g5b")
 debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
-
-[node name="Label" type="Label" parent="StaticBody2D-tree/HitBox"]
-offset_left = 1.4
-offset_top = -10.8
-offset_right = 62.4
-offset_bottom = 12.2
-scale = Vector2(0.282947, 0.284539)
-theme_override_font_sizes/font_size = 15
-text = "+1 wood"
-
-[node name="Timer" type="Timer" parent="StaticBody2D-tree/HitBox"]
 
 [node name="TestDropNCraft" parent="." instance=ExtResource("1_0hwdm")]
 position = Vector2(-98, 31)
@@ -570,5 +546,3 @@ scale = Vector2(0.5, 0.5)
 [connection signal="body_shape_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_body_shape_entered"]
 [connection signal="area_entered" from="Player/AttackRegion/GrapRegion" to="Player/AttackRegion/GrapRegion" method="_on_area_entered"]
 [connection signal="area_exited" from="Player/AttackRegion/GrapRegion" to="Player/AttackRegion/GrapRegion" method="_on_area_exited"]
-[connection signal="timeout" from="StaticBody2D2-rock/Rock/HitBox/Timer" to="StaticBody2D2-rock/Rock/HitBox" method="_on_timer_timeout"]
-[connection signal="timeout" from="StaticBody2D-tree/HitBox/Timer" to="StaticBody2D-tree/HitBox" method="_on_timer_timeout"]

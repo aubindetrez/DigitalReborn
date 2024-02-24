@@ -2,28 +2,13 @@ extends StaticBody2D
 class_name HitBox # Detect hit by player, have life and drop resources
 
 @export var audioPlayer: AudioStreamPlayer
-@export var label: Label
 @export var item_name_to_drop: String
 
-@onready var timer: Timer = $Timer
-
-func _ready():
-	label.visible = false
-
 func _receive_attack(_power):
-	display_label_1s()
 	audioPlayer.play()
 
 	await audioPlayer.finished
 	instanciate_item()
-
-func display_label_1s():
-	label.visible = true
-	timer.wait_time = 1.0
-	timer.start()
-
-func _on_timer_timeout():
-	label.visible = false
 
 @export var drop_offset: Vector2 = Vector2(0, -70)
 func instanciate_item():
