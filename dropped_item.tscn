@@ -1,10 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcmp6koiq3t4k"]
+[gd_scene load_steps=9 format=3 uid="uid://dcmp6koiq3t4k"]
 
 [ext_resource type="Script" path="res://scenes/RigidBody2D_friction.gd" id="1_s88jt"]
+[ext_resource type="Texture2D" uid="uid://cuqw0iwuwhrcb" path="res://assets/items/unknown.png" id="2_h5d2x"]
 [ext_resource type="Script" path="res://DroppedItemCol.gd" id="2_vutkl"]
+[ext_resource type="Texture2D" uid="uid://dpldpauc4kfil" path="res://assets/items/rock.png" id="3_vysx4"]
+[ext_resource type="Texture2D" uid="uid://cos48gnlcp28j" path="res://assets/items/wood.png" id="4_ycxjf"]
+[ext_resource type="Texture2D" uid="uid://thc0fxwnnx5l" path="res://assets/items/complex_obj.png" id="5_fjuv0"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xtai0"]
-size = Vector2(33.5, 14)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ech0j"]
+radius = 23.8341
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ahc6v"]
 radius = 30.0
@@ -15,17 +19,25 @@ collision_layer = 0
 gravity_scale = 0.0
 script = ExtResource("1_s88jt")
 friction = 3
+tex_item_unkown = ExtResource("2_h5d2x")
+tex_item_rock = ExtResource("3_vysx4")
+tex_item_wood = ExtResource("4_ycxjf")
+tex_item_complex = ExtResource("5_fjuv0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_h5d2x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.75, 3)
-shape = SubResource("RectangleShape2D_xtai0")
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_ech0j")
 
 [node name="Label" type="Label" parent="."]
 y_sort_enabled = true
 offset_left = -21.0
-offset_top = -10.0
+offset_top = -42.0
 offset_right = 19.0
-offset_bottom = 13.0
+offset_bottom = -19.0
 scale = Vector2(1.08589, 0.932523)
 text = "drop"
 

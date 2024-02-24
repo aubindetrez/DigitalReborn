@@ -3,10 +3,28 @@ class_name PullableRigidBody
 
 @export var friction: int
 @export var item_name: String
+
+@export var tex_item_unkown: Texture2D
+@export var tex_item_rock: Texture2D
+@export var tex_item_wood: Texture2D
+@export var tex_item_complex: Texture2D
+
+func update_texture():
+	match item_name:
+		"wood":
+			$Sprite2D.texture = tex_item_wood
+		"rock":
+			$Sprite2D.texture = tex_item_rock
+		"furnace":
+			$Sprite2D.texture = tex_item_complex
+		_:
+			$Sprite2D.texture = tex_item_unkown
+
 func _ready():
 	self.linear_damp = friction
 	$Merge_aka_Craft_Area.common_name=item_name
 	$Label.text = item_name
+	update_texture()
 
 var pulled_toward: Vector2 = Vector2.ZERO
 var pulled: bool = false
