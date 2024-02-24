@@ -458,15 +458,19 @@ position = Vector2(0, -96)
 shape = SubResource("RectangleShape2D_qon44")
 debug_color = Color(0.670588, 0.466667, 0.556863, 0.419608)
 
-[node name="GrapRegion" type="Area2D" parent="Player/AttackRegion"]
+[node name="GrapRegion" type="Area2D" parent="Player/AttackRegion" node_paths=PackedStringArray("target")]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("13_23sqs")
+target = NodePath("GrabTarget")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackRegion/GrapRegion"]
-position = Vector2(0, -88)
+position = Vector2(0, -98)
 shape = SubResource("RectangleShape2D_qon44")
 debug_color = Color(0.670588, 0.466667, 0.556863, 0.419608)
+
+[node name="GrabTarget" type="Node2D" parent="Player/AttackRegion/GrapRegion"]
+position = Vector2(-2, -96)
 
 [node name="DropPoint" type="Node2D" parent="Player"]
 script = ExtResource("9_or4j6")

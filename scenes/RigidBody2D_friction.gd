@@ -25,5 +25,6 @@ func _stop_pulling():
 func _integrate_forces(state):
 	if pulled:
 		print("Pulled towards ", pulled_toward)
-		state.apply_central_force(10000*self.global_position.direction_to(pulled_toward))
+		var d = self.global_position.distance_to(pulled_toward)
+		state.apply_central_force(d*d*self.global_position.direction_to(pulled_toward))
 		#state.linear_velocity = 100*self.global_position.direction_to(pulled_toward).normalized()
