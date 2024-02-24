@@ -403,15 +403,15 @@ mp3_success = ExtResource("6_ufd7m")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CraftManager"]
 
 [node name="Item1" parent="." instance=ExtResource("4_hrpv8")]
-position = Vector2(116, 210)
-item_name = "rock"
+position = Vector2(192, 210)
+item_name = "furnace"
 
 [node name="Item2" parent="." instance=ExtResource("4_hrpv8")]
-position = Vector2(237, 209)
+position = Vector2(307, 178)
 item_name = "rock"
 
 [node name="Item3" parent="." instance=ExtResource("4_hrpv8")]
-position = Vector2(168, 149)
+position = Vector2(217, 116)
 item_name = "rock"
 
 [node name="Player" type="CharacterBody2D" parent="."]

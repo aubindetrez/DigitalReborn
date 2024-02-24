@@ -33,13 +33,18 @@ func rm_link(a: DroppedItem, b: DroppedItem):
 func link_exists(a: DroppedItem, b: DroppedItem) -> bool:
 	return list.has(a) and list[a].has(b)
 func get_all_link(item: DroppedItem):
-	var arr: Array[String] = []
 	var merged = {item: item} # Start with the item itself
 	for key in list[item]:
 		merged[key] = key
 		# TODO Should we do it recursively?
+	return merged.values()
+func get_all_link_names(item: DroppedItem) -> Array[String]:
+	var ll = get_all_link(item)
+	var names = ll.map(func(drop: DroppedItem) -> String: return drop.common_name)
+	
 	# Ugly trick because the type checking is brocken in Godot4
-	for i in merged.values().map(func(drop: DroppedItem) -> String: return drop.common_name):
+	var arr: Array[String] = []
+	for i in names:
 		arr.append(i)
 	return arr
 func item_has_link(item: DroppedItem):
@@ -60,12 +65,16 @@ func _callback_new_collision(item1, item2):
 
 		# need to check the connection still exists after await
 		if  link_exists(item1, item2):
-			var names: Array[String] = get_all_link(item1)
+			var names: Array[String] = get_all_link_names(item1)
 			var new_name = get_craft(names)
-			print("Item craft: ", name, " => ", new_name)
-			audio.stream = mp3_success
-			audio.play()
-			instanciate_and_cleanup(new_name, item1, item2)
+			if new_name == "":
+				print("Cannot merge ", item1.common_name, " and ", item2.common_name)
+				take_appart_and_cleanup(item1, item2)
+			else:
+				print("Item craft: ", name, " => ", new_name)
+				audio.stream = mp3_success
+				audio.play()
+				instanciate_and_cleanup(new_name, item1, item2)
 
 # Delete both 'item1' and 'item2' and instanciate 'new_name'
 func instanciate_and_cleanup(new_name: String, item1: DroppedItem, item2: DroppedItem):
@@ -83,6 +92,26 @@ func instanciate_and_cleanup(new_name: String, item1: DroppedItem, item2: Droppe
 	instance.friction = friction
 	instance.item_name = new_name
 	get_parent().add_child(instance)
+
+func take_appart_and_cleanup(item1: DroppedItem, item2: DroppedItem):
+	var list_item = get_all_link(item1)
+	var first = true
+
+	var center: Vector2 = Vector2.ZERO
+	for item in list_item:
+		if first:
+			center = item.global_position
+		else:
+			center = center.lerp(item.global_position, 1.0/list_item.size())
+
+	print("Items to be separated:")
+	for item in list_item:
+		print(" - ", item.common_name, "dist: ", item.global_position.distance_to(center))
+
+	for item in list_item:
+		item.get_parent()._take_appart(center, 300)
+	rm_item(item1)
+	rm_item(item2)
 
 # Will make sure item1 and item2 are no longer in the same entry of 'groups'
 func _callback_rm_collision(item1: DroppedItem, item2: DroppedItem):
