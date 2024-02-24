@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcmp6koiq3t4k"]
+[gd_scene load_steps=12 format=3 uid="uid://dcmp6koiq3t4k"]
 
 [ext_resource type="Script" path="res://scenes/RigidBody2D_friction.gd" id="1_s88jt"]
 [ext_resource type="Texture2D" uid="uid://cuqw0iwuwhrcb" path="res://assets/items/unknown.png" id="2_h5d2x"]
@@ -6,12 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://dpldpauc4kfil" path="res://assets/items/rock.png" id="3_vysx4"]
 [ext_resource type="Texture2D" uid="uid://cos48gnlcp28j" path="res://assets/items/wood.png" id="4_ycxjf"]
 [ext_resource type="Texture2D" uid="uid://thc0fxwnnx5l" path="res://assets/items/complex_obj.png" id="5_fjuv0"]
+[ext_resource type="Script" path="res://HitBox_Build.gd" id="7_sqb21"]
+[ext_resource type="AudioStream" uid="uid://byk73guyjs8pg" path="res://sounds/attack_rock.wav" id="8_fpoi0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ech0j"]
 radius = 23.8341
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ahc6v"]
 radius = 30.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ck1v"]
+size = Vector2(33.6, 31)
 
 [node name="RigidBody2D_with_Friction" type="RigidBody2D"]
 position = Vector2(58, 105)
@@ -59,6 +64,20 @@ script = ExtResource("2_vutkl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Merge_aka_Craft_Area"]
 shape = SubResource("CircleShape2D_ahc6v")
 debug_color = Color(0.627451, 1, 0, 0.419608)
+
+[node name="HitBox_Build" type="StaticBody2D" parent="." node_paths=PackedStringArray("audioPlayer")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_sqb21")
+audioPlayer = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="HitBox_Build"]
+stream = ExtResource("8_fpoi0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox_Build"]
+position = Vector2(-0.200001, -1.5)
+shape = SubResource("RectangleShape2D_6ck1v")
+debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
 
 [connection signal="area_entered" from="Merge_aka_Craft_Area" to="Merge_aka_Craft_Area" method="_on_area_entered"]
 [connection signal="area_exited" from="Merge_aka_Craft_Area" to="Merge_aka_Craft_Area" method="_on_area_exited"]

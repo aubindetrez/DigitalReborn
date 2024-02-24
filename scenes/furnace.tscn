@@ -1,0 +1,109 @@
+[gd_scene load_steps=14 format=3 uid="uid://det7wr4jdiq47"]
+
+[ext_resource type="Texture2D" uid="uid://d0hgw2mbh5qrv" path="res://assets/furnace/furnace.png" id="1_sogoc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_05tp8"]
+size = Vector2(27.8, 25.8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aiuah"]
+atlas = ExtResource("1_sogoc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_af58f"]
+atlas = ExtResource("1_sogoc")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmxbh"]
+atlas = ExtResource("1_sogoc")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63sey"]
+atlas = ExtResource("1_sogoc")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0d5lw"]
+atlas = ExtResource("1_sogoc")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bkjf"]
+atlas = ExtResource("1_sogoc")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kai3n"]
+atlas = ExtResource("1_sogoc")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1tty"]
+atlas = ExtResource("1_sogoc")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxtu1"]
+atlas = ExtResource("1_sogoc")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2nv7"]
+atlas = ExtResource("1_sogoc")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w408k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aiuah")
+}],
+"loop": false,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_af58f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmxbh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63sey")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0d5lw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bkjf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kai3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1tty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kxtu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2nv7")
+}],
+"loop": false,
+"name": &"start",
+"speed": 5.0
+}]
+
+[node name="Furnace" type="StaticBody2D"]
+position = Vector2(-208, 0)
+scale = Vector2(5, 5)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.0999947, -2.1)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_05tp8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_w408k")
+animation = &"off"
+autoplay = "off"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://405rg1u3rtsv"]
+[gd_scene load_steps=65 format=3 uid="uid://405rg1u3rtsv"]
 
 [ext_resource type="PackedScene" uid="uid://ub2jublnx2sv" path="res://scenes/TestDropNCraft.tscn" id="1_0hwdm"]
 [ext_resource type="AudioStream" uid="uid://bilqt5x51lsl2" path="res://sounds/sound_v1-Harp.mp3" id="1_7sy8g"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://byk73guyjs8pg" path="res://sounds/attack_rock.wav" id="10_kfqix"]
 [ext_resource type="AudioStream" uid="uid://dxmydkkdbhake" path="res://sounds/attack_tree.wav" id="12_dje2w"]
 [ext_resource type="Script" path="res://scenes/GrapRegion.gd" id="13_23sqs"]
+[ext_resource type="PackedScene" uid="uid://det7wr4jdiq47" path="res://scenes/furnace.tscn" id="18_5kipw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jivvp"]
 resource_name = "Floor"
@@ -501,6 +502,8 @@ stream = ExtResource("10_kfqix")
 position = Vector2(-0.200001, -1.5)
 shape = SubResource("RectangleShape2D_p1g5b")
 debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
+
+[node name="Furnace" parent="." instance=ExtResource("18_5kipw")]
 
 [node name="StaticBody2D-tree" type="StaticBody2D" parent="."]
 position = Vector2(173, 0)

@@ -12,6 +12,8 @@ func _on_controller_attack(strenght):
 func _on_body_entered(body):
 	if body is HitBox:
 		body._receive_attack(attack_strenght)
+	if body is HitBoxBuild:
+		body._receive_build()
 
 func _on_change_anim_based_on_mvmnt_anim_attack_finished():
 	self.monitoring = false
