@@ -30,6 +30,8 @@ func rm_link(a: DroppedItem, b: DroppedItem):
 		list[a].erase(b)
 	if list.has(b):
 		list[b].erase(a)
+func link_exists(a: DroppedItem, b: DroppedItem) -> bool:
+	return list.has(a) and list[a].has(b)
 func get_all_link(item: DroppedItem):
 	var arr: Array[String] = []
 	var merged = {item: item} # Start with the item itself
@@ -45,7 +47,6 @@ func item_has_link(item: DroppedItem):
 		return true
 	return false
 
-
 # Connectted to the function new_collision() of all DroppedItem
 # Will make sure item1 and item2 are in the same entry in 'groups'
 func _callback_new_collision(item1, item2):
@@ -57,12 +58,14 @@ func _callback_new_collision(item1, item2):
 		audio.play()
 		await audio.finished
 
-		var names: Array[String] = get_all_link(item1)
-		var new_name = get_craft(names)
-		print("Item craft: ", name, " => ", new_name)
-		audio.stream = mp3_success
-		audio.play()
-		instanciate_and_cleanup(new_name, item1, item2)
+		# need to check the connection still exists after await
+		if  link_exists(item1, item2):
+			var names: Array[String] = get_all_link(item1)
+			var new_name = get_craft(names)
+			print("Item craft: ", name, " => ", new_name)
+			audio.stream = mp3_success
+			audio.play()
+			instanciate_and_cleanup(new_name, item1, item2)
 
 # Delete both 'item1' and 'item2' and instanciate 'new_name'
 func instanciate_and_cleanup(new_name: String, item1: DroppedItem, item2: DroppedItem):
@@ -88,6 +91,7 @@ func _callback_rm_collision(item1: DroppedItem, item2: DroppedItem):
 		item1._stop_merge_anim()
 	if not item_has_link(item2):
 		item2._stop_merge_anim()
+	audio.stop()
 
 var craft_rules = [
 	{

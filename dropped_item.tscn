@@ -21,6 +21,7 @@ position = Vector2(-0.75, 3)
 shape = SubResource("RectangleShape2D_xtai0")
 
 [node name="Label" type="Label" parent="."]
+y_sort_enabled = true
 offset_left = -21.0
 offset_top = -10.0
 offset_right = 19.0

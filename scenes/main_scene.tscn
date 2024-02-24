@@ -429,6 +429,8 @@ area2dToRotate = NodePath("../AttackRegion")
 inventory = ExtResource("5_g77rv")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Player"]
+z_as_relative = false
+y_sort_enabled = true
 position = Vector2(4, -62)
 scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_05rlv")
@@ -497,9 +499,9 @@ shape = SubResource("RectangleShape2D_p1g5b")
 debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
 
 [node name="Label" type="Label" parent="StaticBody2D2-rock/Rock/HitBox"]
-offset_left = 0.8
+offset_left = 0.4
 offset_top = -23.2
-offset_right = 60.8
+offset_right = 60.4
 offset_bottom = -1.2
 scale = Vector2(0.590707, 0.63816)
 theme_override_font_sizes/font_size = 15
