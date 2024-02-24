@@ -493,6 +493,7 @@ collision_mask = 2
 script = ExtResource("7_ju6yn")
 audioPlayer = NodePath("AudioStreamPlayer")
 label = NodePath("Label")
+item_name_to_drop = "rock"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StaticBody2D2-rock/Rock/HitBox"]
 stream = ExtResource("10_kfqix")
@@ -532,6 +533,7 @@ collision_mask = 2
 script = ExtResource("7_ju6yn")
 audioPlayer = NodePath("AudioStreamPlayer")
 label = NodePath("Label")
+item_name_to_drop = "wood"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StaticBody2D-tree/HitBox"]
 stream = ExtResource("12_dje2w")

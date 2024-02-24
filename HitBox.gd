@@ -3,6 +3,7 @@ class_name HitBox # Detect hit by player, have life and drop resources
 
 @export var audioPlayer: AudioStreamPlayer
 @export var label: Label
+@export var item_name_to_drop: String
 
 @onready var timer: Timer = $Timer
 
@@ -24,11 +25,11 @@ func display_label_1s():
 func _on_timer_timeout():
 	label.visible = false
 
-@export var drop_offset: Vector2 = Vector2(0, 70)
+@export var drop_offset: Vector2 = Vector2(0, -70)
 func instanciate_item():
 	var drop_scene = preload("res://dropped_item.tscn")
 	var instance = drop_scene.instantiate()
 	instance.global_position = self.global_position - drop_offset
 	instance.friction = 3
-	instance.item_name = "rock"
+	instance.item_name = item_name_to_drop
 	get_tree().get_current_scene().add_child(instance)
