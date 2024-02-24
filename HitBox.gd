@@ -9,10 +9,7 @@ class_name HitBox # Detect hit by player, have life and drop resources
 func _ready():
 	label.visible = false
 
-func _process(delta):
-	pass
-
-func _receive_attack(power):
+func _receive_attack(_power):
 	display_label_1s()
 	audioPlayer.play()
 

@@ -24,7 +24,7 @@ var smoothed_rot = 0.0
 #       +/-PI
 # -PI/2     PI/2
 #        0
-func _process(delta):
+func _process(_delta):
 	smoothed_rot = lerp(rotation, smoothed_rot, 0.1)
 	var charbody2d: CharacterBody2D = $"../.."
 	if blockingAnimAttack:
@@ -61,7 +61,7 @@ func anim_idle():
 		parent.play("idleright")
 
 var blockingAnimAttack = false # Do not play any other animation if set
-func anim_attack(strenght):
+func anim_attack(_strength):
 	blockingAnimAttack = true
 	parent.speed_scale = 2
 	if smoothed_rot < (PI/2 - PI/4) and smoothed_rot > (-PI/2 + PI/4):
