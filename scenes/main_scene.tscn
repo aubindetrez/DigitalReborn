@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://405rg1u3rtsv"]
+[gd_scene load_steps=64 format=3 uid="uid://405rg1u3rtsv"]
 
 [ext_resource type="PackedScene" uid="uid://ub2jublnx2sv" path="res://scenes/TestDropNCraft.tscn" id="1_0hwdm"]
 [ext_resource type="AudioStream" uid="uid://bilqt5x51lsl2" path="res://sounds/sound_v1-Harp.mp3" id="1_7sy8g"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://scenes/DropPoint.gd" id="9_or4j6"]
 [ext_resource type="AudioStream" uid="uid://byk73guyjs8pg" path="res://sounds/attack_rock.wav" id="10_kfqix"]
 [ext_resource type="AudioStream" uid="uid://dxmydkkdbhake" path="res://sounds/attack_tree.wav" id="12_dje2w"]
+[ext_resource type="Script" path="res://scenes/GrapRegion.gd" id="13_23sqs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jivvp"]
 resource_name = "Floor"
@@ -369,7 +370,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qon44"]
-size = Vector2(62, 97)
+size = Vector2(85, 86.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s20h7"]
 size = Vector2(123, 59)
@@ -452,6 +453,16 @@ script = ExtResource("5_rowbj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackRegion"]
 position = Vector2(0, -96)
+shape = SubResource("RectangleShape2D_qon44")
+debug_color = Color(0.670588, 0.466667, 0.556863, 0.419608)
+
+[node name="GrapRegion" type="Area2D" parent="Player/AttackRegion"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("13_23sqs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackRegion/GrapRegion"]
+position = Vector2(0, -88)
 shape = SubResource("RectangleShape2D_qon44")
 debug_color = Color(0.670588, 0.466667, 0.556863, 0.419608)
 
@@ -549,5 +560,7 @@ scale = Vector2(0.5, 0.5)
 [connection signal="area_shape_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_area_shape_entered"]
 [connection signal="body_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_body_entered"]
 [connection signal="body_shape_entered" from="Player/AttackRegion" to="Player/AttackRegion" method="_on_body_shape_entered"]
+[connection signal="area_entered" from="Player/AttackRegion/GrapRegion" to="Player/AttackRegion/GrapRegion" method="_on_area_entered"]
+[connection signal="area_exited" from="Player/AttackRegion/GrapRegion" to="Player/AttackRegion/GrapRegion" method="_on_area_exited"]
 [connection signal="timeout" from="StaticBody2D2-rock/Rock/HitBox/Timer" to="StaticBody2D2-rock/Rock/HitBox" method="_on_timer_timeout"]
 [connection signal="timeout" from="StaticBody2D-tree/HitBox/Timer" to="StaticBody2D-tree/HitBox" method="_on_timer_timeout"]
