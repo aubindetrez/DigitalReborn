@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://405rg1u3rtsv"]
+[gd_scene load_steps=63 format=3 uid="uid://405rg1u3rtsv"]
 
 [ext_resource type="PackedScene" uid="uid://ub2jublnx2sv" path="res://scenes/TestDropNCraft.tscn" id="1_0hwdm"]
 [ext_resource type="AudioStream" uid="uid://bilqt5x51lsl2" path="res://sounds/sound_v1-Harp.mp3" id="1_7sy8g"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://jxfocdnhhdt8" path="res://assets/player/player_v2.png" id="2_uow8f"]
 [ext_resource type="Texture2D" uid="uid://c3dcggddw7pbt" path="res://assets/rock/rock_v2.png" id="3_fjrnr"]
 [ext_resource type="Script" path="res://scenes/CraftManager.gd" id="4_27nld"]
-[ext_resource type="Texture2D" uid="uid://deeiwlehbwesu" path="res://assets/tree/tree_v2.png" id="4_gaol8"]
 [ext_resource type="PackedScene" uid="uid://dcmp6koiq3t4k" path="res://dropped_item.tscn" id="4_hrpv8"]
 [ext_resource type="Script" path="res://scenes/animate_moving_obj.gd" id="4_ujqmk"]
 [ext_resource type="Resource" uid="uid://jkjam08pq73e" path="res://inventory.tres" id="5_g77rv"]
@@ -18,9 +17,9 @@
 [ext_resource type="Script" path="res://HitBox.gd" id="7_ju6yn"]
 [ext_resource type="Script" path="res://scenes/DropPoint.gd" id="9_or4j6"]
 [ext_resource type="AudioStream" uid="uid://byk73guyjs8pg" path="res://sounds/attack_rock.wav" id="10_kfqix"]
-[ext_resource type="AudioStream" uid="uid://dxmydkkdbhake" path="res://sounds/attack_tree.wav" id="12_dje2w"]
 [ext_resource type="Script" path="res://scenes/GrapRegion.gd" id="13_23sqs"]
 [ext_resource type="PackedScene" uid="uid://det7wr4jdiq47" path="res://scenes/furnace.tscn" id="18_5kipw"]
+[ext_resource type="PackedScene" uid="uid://6d34w3slhmks" path="res://scenes/Tree.tscn" id="19_h6k7q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jivvp"]
 resource_name = "Floor"
@@ -379,9 +378,6 @@ size = Vector2(123, 59)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1g5b"]
 size = Vector2(33.6, 31)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xrhr"]
-size = Vector2(30.2, 27)
-
 [node name="Node2D" type="Node2D"]
 
 [node name="Ambiance" type="AudioStreamPlayer" parent="."]
@@ -505,33 +501,7 @@ debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
 
 [node name="Furnace" parent="." instance=ExtResource("18_5kipw")]
 
-[node name="StaticBody2D-tree" type="StaticBody2D" parent="."]
-position = Vector2(173, 0)
-scale = Vector2(5, 5)
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D-tree"]
-position = Vector2(-0.100002, -1.8)
-shape = SubResource("RectangleShape2D_4xrhr")
-
-[node name="Tree" type="Sprite2D" parent="StaticBody2D-tree"]
-texture = ExtResource("4_gaol8")
-hframes = 2
-
-[node name="HitBox" type="StaticBody2D" parent="StaticBody2D-tree" node_paths=PackedStringArray("audioPlayer")]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("7_ju6yn")
-audioPlayer = NodePath("AudioStreamPlayer")
-item_name_to_drop = "wood"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StaticBody2D-tree/HitBox"]
-stream = ExtResource("12_dje2w")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D-tree/HitBox"]
-position = Vector2(-0.200001, -1.5)
-shape = SubResource("RectangleShape2D_p1g5b")
-debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
+[node name="StaticBody2D-tree" parent="." instance=ExtResource("19_h6k7q")]
 
 [node name="TestDropNCraft" parent="." instance=ExtResource("1_0hwdm")]
 position = Vector2(-98, 31)

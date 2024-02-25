@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://6d34w3slhmks"]
+
+[ext_resource type="Texture2D" uid="uid://deeiwlehbwesu" path="res://assets/tree/tree_v2.png" id="1_yq1ok"]
+[ext_resource type="Script" path="res://HitBox.gd" id="2_aihm1"]
+[ext_resource type="AudioStream" uid="uid://dxmydkkdbhake" path="res://sounds/attack_tree.wav" id="3_sf61x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xrhr"]
+size = Vector2(30.2, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1g5b"]
+size = Vector2(33.6, 31)
+
+[node name="StaticBody2D-tree" type="StaticBody2D"]
+position = Vector2(173, 0)
+scale = Vector2(5, 5)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.100002, -1.8)
+shape = SubResource("RectangleShape2D_4xrhr")
+
+[node name="Tree" type="Sprite2D" parent="."]
+texture = ExtResource("1_yq1ok")
+hframes = 2
+
+[node name="HitBox" type="StaticBody2D" parent="." node_paths=PackedStringArray("audioPlayer")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_aihm1")
+audioPlayer = NodePath("")
+item_name_to_drop = "wood"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="HitBox"]
+stream = ExtResource("3_sf61x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-0.200001, -1.5)
+shape = SubResource("RectangleShape2D_p1g5b")
+debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
