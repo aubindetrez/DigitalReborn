@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cntfml50m48hb"]
+
+[ext_resource type="Texture2D" uid="uid://c3dcggddw7pbt" path="res://assets/rock/rock_v2.png" id="1_sue0l"]
+[ext_resource type="Script" path="res://HitBox.gd" id="2_1tatw"]
+[ext_resource type="AudioStream" uid="uid://byk73guyjs8pg" path="res://sounds/attack_rock.wav" id="3_b7kg2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s20h7"]
+size = Vector2(123, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1g5b"]
+size = Vector2(33.6, 31)
+
+[node name="StaticBody2D2-rock" type="StaticBody2D"]
+scale = Vector2(0.5, 0.5)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 10)
+shape = SubResource("RectangleShape2D_s20h7")
+
+[node name="Rock" type="Sprite2D" parent="."]
+scale = Vector2(5, 5)
+texture = ExtResource("1_sue0l")
+
+[node name="HitBox" type="StaticBody2D" parent="Rock" node_paths=PackedStringArray("audioPlayer")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_1tatw")
+audioPlayer = NodePath("")
+item_name_to_drop = "rock"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Rock/HitBox"]
+stream = ExtResource("3_b7kg2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rock/HitBox"]
+position = Vector2(-0.200001, -1.5)
+shape = SubResource("RectangleShape2D_p1g5b")
+debug_color = Color(0.713726, 0.45098, 0.490196, 0.419608)
