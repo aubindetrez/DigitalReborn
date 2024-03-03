@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://scenes/GrapRegion.gd" id="13_23sqs"]
 [ext_resource type="PackedScene" path="res://scenes/Rock.tscn" id="15_tpc5s"]
 [ext_resource type="PackedScene" path="res://scenes/furnace.tscn" id="18_5kipw"]
-[ext_resource type="PackedScene" path="res://scenes/Tree.tscn" id="19_h6k7q"]
+[ext_resource type="PackedScene" uid="uid://bfgoxfkcojxhm" path="res://scenes/Tree.tscn" id="19_h6k7q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jivvp"]
 resource_name = "Floor"

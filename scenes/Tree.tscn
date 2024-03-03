@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://6d34w3slhmks"]
+[gd_scene load_steps=6 format=3 uid="uid://bfgoxfkcojxhm"]
 
 [ext_resource type="Texture2D" uid="uid://deeiwlehbwesu" path="res://assets/tree/tree_v2.png" id="1_yq1ok"]
 [ext_resource type="Script" path="res://HitBox.gd" id="2_aihm1"]
@@ -27,7 +27,7 @@ hframes = 2
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_aihm1")
-audioPlayer = NodePath("")
+audioPlayer = NodePath("AudioStreamPlayer")
 item_name_to_drop = "wood"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="HitBox"]
