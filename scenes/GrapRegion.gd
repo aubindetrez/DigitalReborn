@@ -6,7 +6,7 @@ var can_grab: DroppedItem = null
 var grabbing: DroppedItem = null
 @export var target: Node2D
 
-@export var activate: bool = false  :
+@export var activate: bool = false:
 	get:
 		return activate
 	set(value):
@@ -17,6 +17,7 @@ var grabbing: DroppedItem = null
 			
 
 func _process(delta):
+	handle_inputs()
 	if grabbing and is_instance_valid(grabbing):
 		grabbing.get_parent()._start_pulling(target.global_position)
 
@@ -38,10 +39,10 @@ func drag_object(obj: DroppedItem):
 	grabbing.get_parent()._start_pulling(target.global_position)
 	print("Pulling ",grabbing.common_name)
 
-func _unhandled_key_input(event):
-	if event.is_action_pressed("ui_accept"):
+func handle_inputs():
+	if Input.is_action_just_pressed("ui_accept"):
 		activate = true
-	elif event.is_action_released("ui_accept"):
+	elif Input.is_action_just_released("ui_accept"):
 		activate = false
 
 func _on_area_entered(area: DroppedItem):

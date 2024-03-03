@@ -19,14 +19,17 @@ func _ready():
 	selTex.scale = children[selected].scale
 	selTex.global_position = children[selected].global_position
 
-func _unhandled_key_input(event):
-	if event.is_action_pressed("ui_right"):
+func _process(delta):
+	handle_inputs()
+
+func handle_inputs():
+	if Input.is_action_just_pressed("ui_right"):
 		selected = (selected+1) % children.size()
 		selection_changed.emit()
-	elif event.is_action_pressed("ui_left"):
+	elif Input.is_action_just_pressed("ui_left"):
 		selected = (selected-1) % children.size()
 		selection_changed.emit()
-	elif event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_select"):
+	elif Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_select"):
 		selection_confirmed.emit(selected)
 	selTex.scale = children[selected].scale
 	selTex.global_position = children[selected].global_position
