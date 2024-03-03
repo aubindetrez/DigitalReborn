@@ -15,9 +15,9 @@
 [ext_resource type="AudioStream" uid="uid://ghpyykdymp4c" path="res://sounds/craft_done.mp3" id="6_ufd7m"]
 [ext_resource type="Script" path="res://scenes/DropPoint.gd" id="9_or4j6"]
 [ext_resource type="Script" path="res://scenes/GrapRegion.gd" id="13_23sqs"]
-[ext_resource type="PackedScene" uid="uid://cntfml50m48hb" path="res://scenes/Rock.tscn" id="15_tpc5s"]
-[ext_resource type="PackedScene" uid="uid://det7wr4jdiq47" path="res://scenes/furnace.tscn" id="18_5kipw"]
-[ext_resource type="PackedScene" uid="uid://6d34w3slhmks" path="res://scenes/Tree.tscn" id="19_h6k7q"]
+[ext_resource type="PackedScene" path="res://scenes/Rock.tscn" id="15_tpc5s"]
+[ext_resource type="PackedScene" path="res://scenes/furnace.tscn" id="18_5kipw"]
+[ext_resource type="PackedScene" path="res://scenes/Tree.tscn" id="19_h6k7q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jivvp"]
 resource_name = "Floor"
