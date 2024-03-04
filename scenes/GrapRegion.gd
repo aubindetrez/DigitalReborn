@@ -4,6 +4,10 @@ class_name GrapRegion
 
 var can_grab: DroppedItem = null
 var grabbing: DroppedItem = null
+
+signal start_grabbing()
+signal stop_grabbing()
+
 @export var target: Node2D
 
 @export var activate: bool = false:
@@ -42,8 +46,10 @@ func drag_object(obj: DroppedItem):
 func handle_inputs():
 	if Input.is_action_just_pressed("ui_accept"):
 		activate = true
+		start_grabbing.emit()
 	elif Input.is_action_just_released("ui_accept"):
 		activate = false
+		stop_grabbing.emit()
 
 func _on_area_entered(area: DroppedItem):
 	print("Can grab: ", area.common_name)

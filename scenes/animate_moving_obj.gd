@@ -18,6 +18,12 @@ func _ready():
 	parent = get_parent()
 	assert(parent is AnimatedSprite2D, "The parent must be an animated sprite2d")
 
+var magic = false
+# Enable / Disable magic animation
+func magic_on():
+	magic = true
+func magic_off():
+	magic = false
 
 var smoothed_rot = 0.0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,28 +43,52 @@ func _process(_delta):
 func anim_moving():
 	parent.speed_scale = 2 # by default the movement is too fast compared to the animation, speed up the animation
 	if smoothed_rot < (PI/2 - PI/4) and smoothed_rot > (-PI/2 + PI/4):
-		parent.play("upward")
+		if magic:
+			parent.play("upward_magic")
+		else:
+			parent.play("upward")
 	elif smoothed_rot < (-PI/2 - PI/4) or smoothed_rot > (PI/2 + PI/4):
-		parent.play("downward")
+		if magic:
+			parent.play("downward_magic")
+		else:
+			parent.play("downward")
 	elif smoothed_rot < (PI - PI/4) and smoothed_rot > (0 + PI/4):
 		parent.flip_h = false
-		parent.play("right")
+		if magic:
+			parent.play("right_magic")
+		else:
+			parent.play("right")
 	elif smoothed_rot > (-PI + PI/4) and smoothed_rot < (0 - PI/4):
 		parent.flip_h = true
-		parent.play("right")
+		if magic:
+			parent.play("right_magic")
+		else:
+			parent.play("right")
 
 func anim_idle():
 	parent.speed_scale = 1
 	if smoothed_rot < (PI/2 - PI/4) and smoothed_rot > (-PI/2 + PI/4):
-		parent.play("idleup")
+		if magic:
+			parent.play("idleup_magic")
+		else:
+			parent.play("idleup")
 	elif smoothed_rot < (-PI/2 - PI/4) or smoothed_rot > (PI/2 + PI/4):
-		parent.play("idledown")
+		if magic:
+			parent.play("idledown_magic")
+		else:
+			parent.play("idledown")
 	elif smoothed_rot < (PI - PI/4) and smoothed_rot > (0 + PI/4):
 		parent.flip_h = false
-		parent.play("idleright")
+		if magic:
+			parent.play("idleright_magic")
+		else:
+			parent.play("idleright")
 	elif smoothed_rot > (-PI + PI/4) and smoothed_rot < (0 - PI/4):
 		parent.flip_h = true
-		parent.play("idleright")
+		if magic:
+			parent.play("idleright_magic")
+		else:
+			parent.play("idleright")
 
 var blockingAnimAttack = false # Do not play any other animation if set
 func anim_attack(_strength):
